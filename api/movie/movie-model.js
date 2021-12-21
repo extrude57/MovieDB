@@ -1,11 +1,17 @@
 const db = require('../../database/connection');
 
-
-
+module.exports = {
+  find,
+  findBy,
+  findById,
+  add,
+  update,
+  remove,
+};
 
  function find() {
-   return db("movie")
-    .select("id", "title", "director", "metascore", "genre","description", "favorite");
+   return db("movie as m")
+    .select("m.id", "m.title", "m.director", "m.metascore", "m.genre","m.description");
   }
   
   function findBy(filter) {
@@ -30,11 +36,3 @@ const db = require('../../database/connection');
     return db("movie").where({ id }).del();
   }
   
-  module.exports = {
-    find,
-    findBy,
-    findById,
-    add,
-    update,
-    remove,
-  };

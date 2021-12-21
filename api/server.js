@@ -27,7 +27,7 @@ const sessionConfig = {
   name: "movieapp",
   secret: process.env.COOKIE_SECRET || "keepitsecretflyszonesnapsskeepitsafe",
 };
-server.use(session(sessionConfig)); 
+// server.use(session(sessionConfig)); 
 
 server.use("/api/movie", movieRouter); 
 
