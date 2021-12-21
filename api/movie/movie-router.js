@@ -2,10 +2,23 @@
 const jwt = require('jsonwebtoken')
 const router = require("express").Router();
 const { jwtSecret } = require('../../config/secrets.js')
-const Movies = require("movie-model.js");
+const Movie = require("./movie-model");
 
 router.get("/movie", (req, res) => {
- 
+  try{
+
+    const movies  = Movie.find();
+    res.json(movies);
+
+
+  }catch(err){
+    console.log(err);
+    res.status(500).json({
+      message:"Cannot get Movie catch get block"
+    });
+  }throw( function(e){
+    return e
+  })
 });
 
  
