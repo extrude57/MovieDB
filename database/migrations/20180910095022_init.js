@@ -22,9 +22,10 @@ exports.up = function (knex) {
 
     .createTable("movie", tbl => {
       tbl.increments();
-      tbl.string("mvname", 64).notNullable().unique();
+      tbl.string("title", 64).notNullable().unique();
+      tbl.string("director", 24);
+      tbl.integer("metascore",100).defaultTo(0);
       tbl.string("genre", 24);
-      tbl.integer("mvscore",100).defaultTo(0);
       tbl.string("description",164);
       tbl.bool("favorites",false);
 

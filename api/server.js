@@ -4,8 +4,8 @@ const cors = require("cors");
 
 const session = require("express-session");
 
-const authRouter = require("./auth/auth-router.js");
-const usersRouter = require("./users/users-router.js");
+const movieRouter = require("./movie/movie-router.js");
+// const usersRouter = require("./users/users-router.js");
 
 const server = express();
 
@@ -24,16 +24,15 @@ const sessionConfig = {
   },
   resave: false,
   saveUninitialized: process.env.USER_ALLOWED_COOKIES || true,
-  name: "monster",
-  secret: process.env.COOKIE_SECRET || "keepitsecret,keepitsafe",
+  name: "movieapp",
+  secret: process.env.COOKIE_SECRET || "keepitsecretflyszonesnapsskeepitsafe",
 };
 server.use(session(sessionConfig)); 
 
-server.use("/api/auth", authRouter);
-server.use("/api/users", usersRouter);
+server.use("/api/movie", movieRouter); 
 
 server.get("/", (req, res) => {
-  res.json({ api: "up" });
+  res.json({ api: "movie api get up" });
 });
 
 module.exports = server;
