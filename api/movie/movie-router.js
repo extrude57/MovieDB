@@ -2,12 +2,12 @@
 const jwt = require('jsonwebtoken')
 const router = require("express").Router();
 const { jwtSecret } = require('../../config/secrets.js')
-const db = require("./movie-model");
-
+const Movie = require("./movie-model");
+const isValid = require("./movie-service");
 router.get("/", async (req, res) => {
   try{
 
-    const movies  =  await db.find();
+    const movies  =  await Movie.find();
     res.status(200).json({movie:movies});
 
 
@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     const { id } = req.params
     try {
-      const movies = await db.findById(id);
+      const movies = await Movie.findById(id);
       res.json(movies);
     } catch (error) {
       console.log(error);
@@ -48,6 +48,15 @@ router.get("/:id", async (req, res) => {
   // we can  make instructions here into 
   // an object or array so each direction is on a new 
   // element or has a new key value pair 
+      movie:{
+          id: id,
+          title: "34gasd",
+        director: "Peter Jackson",
+        metascore: 92,
+        genre: "Fantasy",
+        description: "A meek Hobbit",
+        favorites:false
+        }
 
 */
 
@@ -55,9 +64,9 @@ router.post("/", async(req, res) => {
 
   //   try {
   //     const movie = req.body;
-  //     // const newmovie = await db.add(addmovie);
+  //     // const newmovie = await Movie.add(addmovie);
   //     // res.json(newmovie);
-  //   await  db.add(movie)
+  //   await  Movie.add(movie)
   //       .then(a =>{
   //         res.status(201).json(a)
   //       })
@@ -65,7 +74,7 @@ router.post("/", async(req, res) => {
   //         res.status(404).json({message: e.message})
   //       })
 
-  //   // const newMovie = await db.add(movies);
+  //   // const newMovie = await Movie.add(movies);
   //   // res.status(201).json({movies:newMovie});
 
   //   } catch (err) {
@@ -94,18 +103,18 @@ router.post("/", async(req, res) => {
       const creds = { 
 
         movie:{
-          id: id,
-          title: "34gasd",
-        director: "Peter Jackson",
-        metascore: 92,
-        genre: "Fantasy",
-        description: "A meek Hobbit",
-        favorites:false
+          
+          title: "fghhg545555gggg",
+          director: "Peter Jackson",
+          metascore: 92,
+          genre: "Fantasy",
+          description: "A meek Hobbit",
+          favorites:false
         }
       }
-      resolve(console.log(movie));
+      // resolve(console.log(movie));
       resolve(console.log(creds));
-       // To find the last row in the database needs to be integrated with user id&name
+      // To find the last row in the database needs to be integrated with user id&name
       //  Users.findByLastId()
       // .then(u =>{
       //   return resolve(console.log(u[0].max) );
@@ -118,19 +127,19 @@ router.post("/", async(req, res) => {
   
       // credentials.usersstack = 500.00;
        
-      // const newmovie = await db.add(addmovie);
+      // const newmovie = await Movie.add(addmovie);
       // res.json(newmovie);
-      if(creds){
-        db.add(creds)
+      if (isValid(creds)){ 
+        Movie.add(creds)
         then(function(a){
           resolve(a);
         })
-        .catch( e => {
+        .catch( function(e){
           reject( res.status(404).json({message: e.message}));
         })
       }
     else {
-        reject(err =>{
+        reject(function(err){
           // res.writeHead(400);
         res.status(400).json({
           message: "samewar "+err,
@@ -139,11 +148,11 @@ router.post("/", async(req, res) => {
       }
     }
     catch(e){
-      res.setHeader("Content","application/json", "text/html")
+      res.setHeader("Content-Type","application/json", "text/html")
       console.log('catch',e);
     }
     throw (e)=>{
-      reject(res.setHeader("application/json", "text/html"));
+      reject(res.setHeader("Content-Type","application/json", "text/html"));
       reject(res.status(200).json({message: "thrown 200"}));
     }
   
@@ -163,7 +172,7 @@ router.post("/", async(req, res) => {
     const changes = req.body;
   
     try {
-      const updatemovie = await db.update(id, changes);
+      const updatemovie = await Movie.update(id, changes);
       if (updatemovie) {
         res.json(updatemovie);
       } else {
@@ -171,7 +180,7 @@ router.post("/", async(req, res) => {
       }
     } catch (err) {
       console.log(err);
-      res.status(500).json({ message: 'error with db', error: err });
+      res.status(500).json({ message: 'error with Movie', error: err });
     }
   });
 
@@ -181,15 +190,15 @@ router.post("/", async(req, res) => {
     const { id } = req.params;
   
     try {
-      const count = await db.remove(id);
-      if (db) {
+      const count = await Movie.remove(id);
+      if (Movie) {
         res.json({ message: `deleted ${count} records` });
       } else {
         res.status(404).json({ message: 'invalid movie id' });
       }
     } catch (err) {
       console.log(err);
-      res.status(500).json({ message: 'error with db', error: err });
+      res.status(500).json({ message: 'error with Movie', error: err });
     }
   });
 
