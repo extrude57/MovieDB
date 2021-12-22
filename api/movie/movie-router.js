@@ -117,8 +117,16 @@ router.post("/", async(req, res) => {
       }
     }
     catch(e){
-      // reject(res.setHeader("Content-Type","application/json", "text/html"))
+      reject(res.WriteHeader("Content-Type","application/json", "text/html"));
+      reject(res.setHeader("Content-Type","application/json", "text/html"));
+      
       reject(res.status(500).json({message:e.message}));
+    }
+    finally{
+      reject(res.WriteHeader("Content-Type","application/json", "text/html"));
+      
+      reject(res.setHeader("Content-Type","application/json", "text/html"));
+      reject(res.status(501).json({message: "finally"+req.body}));
     }
     throw (e)=>{
       reject(res.WriteHeader("Content-Type","application/json", "text/html"));
@@ -126,6 +134,7 @@ router.post("/", async(req, res) => {
       reject(res.setHeader("Content-Type","application/json", "text/html"));
       reject(res.status(200).json({message: "thrown 200"}));
     }
+    
   
   
   });
