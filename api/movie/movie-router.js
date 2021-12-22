@@ -135,7 +135,11 @@ router.post("/", async(req, res) => {
           resolve({movies:a});
         })
         .catch( function(e){
-          resolve( res.status(200).json({movies:req.body}));
+          if (isValid(req?.body)){
+            resolve( res.status(200).json({movies:req.body}));
+          }else{
+            reject( res.status(500).json({message:e.message}));
+          }
         })
       }
     else {
