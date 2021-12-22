@@ -48,34 +48,40 @@ router.get("/:id", async (req, res) => {
   // we can  make instructions here into 
   // an object or array so each direction is on a new 
   // element or has a new key value pair 
-{
-    "id": 1,
-    "title": "Eggwhites with ham",
-    "source": "your mom",
-    "ingredients": "fried shrimp with chocolate chips",
-    "instructions": "Step 1 fry the shrimp step 2 batter the chocolate 3 other stuff as well here",
-    "category": "c food",
-    "img": "../../assets/img/shrimps.jpg"
-}
+
 */
 
 router.post("/", async(req, res) => {
-    const addmovie = req.body;
+
     try {
+      const movie = req.body;
       // const newmovie = await db.add(addmovie);
       // res.json(newmovie);
-    await  db.add(addmovie)
+    await  db.add(movie)
         .then(a =>{
           res.status(201).json(a)
         })
         .catch( e => {
-          res.status(400).json({message: e.message})
+          res.status(404).json({message: e.message})
         })
+
+    // const newMovie = await db.add(movies);
+    // res.status(201).json({movies:newMovie});
 
     } catch (err) {
       console.log(err);
-      res.status(500).json({ message: "could not add the movie" });
+      res.status(500).json({ message: "could not add the movie "+e.message });
     }
+    throw{
+      function(e){
+          return res.status(401).json({message:"401 post "+e.message})
+      }
+    }
+    
+      // finally{
+        
+      //     res.status(400).json({message:e})
+      // }
   });
 
 
@@ -116,7 +122,6 @@ router.post("/", async(req, res) => {
   });
 
 
-module.exports = router;
 
 
 
