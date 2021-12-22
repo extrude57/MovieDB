@@ -42,12 +42,6 @@ router.get("/:id", async (req, res) => {
 
 
 /*post request with
-  // TODO for future verisions see if 
-  // front-end wants to map an array with instructions
-  // so each step is on a new line for each individual instruction 
-  // we can  make instructions here into 
-  // an object or array so each direction is on a new 
-  // element or has a new key value pair 
       movie:{
           id: id,
           title: "34gasd",
@@ -62,36 +56,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async(req, res) => {
 
-  //   try {
-  //     const movie = req.body;
-  //     // const newmovie = await Movie.add(addmovie);
-  //     // res.json(newmovie);
-  //   await  Movie.add(movie)
-  //       .then(a =>{
-  //         res.status(201).json(a)
-  //       })
-  //       .catch( e => {
-  //         res.status(404).json({message: e.message})
-  //       })
-
-  //   // const newMovie = await Movie.add(movies);
-  //   // res.status(201).json({movies:newMovie});
-
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.status(500).json({ message: "could not add the movie "+e.message });
-  //   }
-  //   throw{
-  //     function(e){
-  //         return res.status(401).json({message:"401 post "+e.message})
-  //     }
-  //   }
-    
-  //     // finally{
-        
-  //     //     res.status(400).json({message:e})
-  //     // }
-  // });
+ 
 
 
   let promise1 = new Promise(function (resolve, reject) {
@@ -138,7 +103,7 @@ router.post("/", async(req, res) => {
           if (isValid(req?.body)){
             resolve( res.status(200).json({movies:req.body}));
           }else{
-            reject( res.status(500).json({message:e.message}));
+            reject( res.status(401).json({message:e.message}));
           }
         })
       }
@@ -153,7 +118,7 @@ router.post("/", async(req, res) => {
     }
     catch(e){
       // reject(res.setHeader("Content-Type","application/json", "text/html"))
-      reject(console.log('catch',e));
+      reject(res.status(500).json({message:e.message}));
     }
     throw (e)=>{
       reject(res.WriteHeader("Content-Type","application/json", "text/html"));
