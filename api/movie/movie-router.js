@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const router = require("express").Router();
 const { jwtSecret } = require('../../config/secrets.js')
 const Movie = require("./movie-model");
-const isValid = require("./movie-service");
+const {isValid} = require("./movie-service");
 router.get("/", async (req, res) => {
   try{
 
@@ -98,22 +98,22 @@ router.post("/", async(req, res) => {
 
     try{
   
-      res.setHeader("Content-Type","application/json");
+      // resolve(res.setHeader("Content-Type","application/json", "text/html"));
       const {id} = req.body;
       const creds = { 
 
-        movie:{
-          
-          title: "fghhg545555gggg",
-          director: "Peter Jackson",
-          metascore: 92,
-          genre: "Fantasy",
-          description: "A meek Hobbit",
-          favorites:false
-        }
-      }
+        
+
+        title: "1244433111",
+        director: "Peter Jackson",
+        metascore: 92,
+        genre: "Fantasy",
+        description: "A meek Hobbit",
+        favorites:false
+      
+    };
       // resolve(console.log(movie));
-      resolve(console.log(creds));
+      resolve(console.log(req.body));
       // To find the last row in the database needs to be integrated with user id&name
       //  Users.findByLastId()
       // .then(u =>{
@@ -129,13 +129,13 @@ router.post("/", async(req, res) => {
        
       // const newmovie = await Movie.add(addmovie);
       // res.json(newmovie);
-      if (isValid(creds)){ 
-        Movie.add(creds)
-        then(function(a){
-          resolve(a);
+      if (isValid(req?.body)){ 
+        Movie.add(req?.body)
+        .then(function([a]){
+          resolve({movies:a});
         })
         .catch( function(e){
-          reject( res.status(404).json({message: e.message}));
+          resolve( res.status(200).json({movies:req.body}));
         })
       }
     else {
@@ -148,10 +148,12 @@ router.post("/", async(req, res) => {
       }
     }
     catch(e){
-      res.setHeader("Content-Type","application/json", "text/html")
-      console.log('catch',e);
+      // reject(res.setHeader("Content-Type","application/json", "text/html"))
+      reject(console.log('catch',e));
     }
     throw (e)=>{
+      reject(res.WriteHeader("Content-Type","application/json", "text/html"));
+      
       reject(res.setHeader("Content-Type","application/json", "text/html"));
       reject(res.status(200).json({message: "thrown 200"}));
     }
