@@ -68,12 +68,4 @@ exports.seed = function(knex) {
 
 
 
-// exports.seed = function (knex) {
-//   // 000-cleanup.js already cleaned out all tables
-
-
-
-//   return knex("movie")
-//     .insert([movies])
-//     .then(() => console.log("\n== Seed data for movie table added. ==\n"));
-// };
+ 

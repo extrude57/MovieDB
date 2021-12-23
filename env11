@@ -1,0 +1,10 @@
+# do not commit sensitive info in the repo postgres://rex:pass@127.0.0.1:5432/auth  DATABASE_URL=postgres://ipqbdwjbuaxnuk:f1c0702d021be3d8f3509872b0bc3ca3cd1e12a7a66b445afd7c6203a232d4a1@ec2-3-228-75-39.compute-1.amazonaws.com:5432/d5nt9r8o8d38go?sslmode=require
+POSTGRES_USER=ipqbdwjbuaxnuk
+POSTGRES_PASSWORD=f1c0702d021be3d8f3509872b0bc3ca3cd1e12a7a66b445afd7c6203a232d4a1
+POSTGRES_DB=d5nt9r8o8d38go
+POSTGRES_HOST=ec2-3-228-75-39.compute-1.amazonaws.com
+DATABASE_URL=postgres://ipqbdwjbuaxnuk:f1c0702d021be3d8f3509872b0bc3ca3cd1e12a7a66b445afd7c6203a232d4a1@ec2-3-228-75-39.compute-1.amazonaws.com:5432/d5nt9r8o8d38go
+NODE_ENV=production
+POSTGRES_PORT=5432
+JWT_SECRET=fljalkjsdfffffasssSnasnuacsdd3f232
+PORT=2344 
